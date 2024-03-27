@@ -81,20 +81,16 @@ const categories = [
 
 function ListingEditScreen() {
   const location = useLocation();
-  const [uploadVisible, setUploadVisible] = useState(false);
-  const [progress, setProgress] = useState();
 
-  const handleSubmit = async (listing) => {
-    setProgress(0);
-    setUploadVisible(true);
+  const handleSubmit = async (listing, { resetForm }) => {
     const result = await listingApi.addListing({ ...listing, location });
-    setUploadVisible(false);
 
     if (!result.ok) {
       return alert("Couldn't save the changes. Retry later.");
     }
 
     alert("Success");
+    resetForm();
   };
 
   return (
@@ -108,6 +104,7 @@ function ListingEditScreen() {
           category: null,
         }}
         onSubmit={handleSubmit}
+        resetForm
         validationSchema={validationSchema}
       >
         <ImageFormFeild name="images" />
