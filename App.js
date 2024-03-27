@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import "core-js/stable/atob";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 import theme from "./App/config/theme";
 import AppNavigator from "./App/navigation/AppNavigator";
@@ -15,19 +15,41 @@ export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
-  const restoreUser = async () => {
-    const user = await authStorage.getUser();
-    if (user) setUser(jwtDecode(user));
-  };
+  useEffect(() => {
+    const restoreUser = async () => {
+      const user = await authStorage.getUser();
+      if (user) setUser(user);
+    };
 
-  if (!isReady)
-    return (
-      <AppLoading
-        startAsync={restoreUser}
-        onFinish={() => setIsReady(true)}
-        onError={(error) => console.log(error)}
-      />
-    );
+    const loadData = async () => {
+      try {
+        await restoreUser();
+        setIsReady(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadData();
+
+    // Prevent SplashScreen from auto-hiding
+    SplashScreen.preventAutoHideAsync();
+
+    // Hide SplashScreen when your component is ready
+    if (isReady) {
+      SplashScreen.hideAsync();
+    }
+
+    // Cleanup function to hide SplashScreen when unmounting
+    return () => {
+      SplashScreen.hideAsync();
+    };
+  }, [isReady]);
+
+  if (!isReady) {
+    // Render a loading indicator here if needed
+    return null;
+  }
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
-import Screen from "../components/Screen";
-import ListItem from "../components/lists/ListItem";
-import { View, StyleSheet, FlatList } from "react-native";
-import colors from "../config/colors";
-import Icon from "../components/Icon";
-import LineSeparator from "../components/lists/LineSeparator";
+import { FlatList, StyleSheet, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import AuthContext from "../auth/context";
-import authStorage from "../auth/storage";
+
+import useAuth from "../auth/useAuth";
+import Icon from "../components/Icon";
+import Screen from "../components/Screen";
+import LineSeparator from "../components/lists/LineSeparator";
+import ListItem from "../components/lists/ListItem";
+import colors from "../config/colors";
 
 const accountList = [
   {
@@ -23,12 +22,8 @@ const accountList = [
 ];
 
 function AccountScreen({ navigation }) {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, logout } = useAuth();
 
-  const handleLogout = () => {
-    setUser(null);
-    authStorage.removeToken();
-  };
   return (
     <Screen style={styles.screen}>
       <View style={{ marginBottom: 30 }}>
@@ -60,7 +55,7 @@ function AccountScreen({ navigation }) {
       <ListItem
         title="Logout"
         iconComponents={<Icon name="logout" backgroundColor="#E4E111" />}
-        onPress={handleLogout}
+        onPress={() => logout()}
       />
     </Screen>
   );
