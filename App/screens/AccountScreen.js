@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Screen from "../components/Screen";
 import ListItem from "../components/lists/ListItem";
 import { View, StyleSheet, FlatList } from "react-native";
@@ -6,6 +6,8 @@ import colors from "../config/colors";
 import Icon from "../components/Icon";
 import LineSeparator from "../components/lists/LineSeparator";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
 
 const accountList = [
   {
@@ -21,12 +23,18 @@ const accountList = [
 ];
 
 function AccountScreen({ navigation }) {
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    setUser(null);
+    authStorage.removeToken();
+  };
   return (
     <Screen style={styles.screen}>
       <View style={{ marginBottom: 30 }}>
         <ListItem
-          title="Abdulhadi Abdn"
-          subtitle="abdulhadiabdn@gmail.com"
+          title={user.name}
+          subtitle={user.email}
           image={require("../assets/mosh.jpg")}
         />
       </View>
@@ -52,6 +60,7 @@ function AccountScreen({ navigation }) {
       <ListItem
         title="Logout"
         iconComponents={<Icon name="logout" backgroundColor="#E4E111" />}
+        onPress={handleLogout}
       />
     </Screen>
   );
