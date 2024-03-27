@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
 import Screen from "../components/Screen";
-import { AppForm, AppFormFeild, SubmitButton } from "../components/forms";
+import {
+  AppForm,
+  AppFormFeild,
+  ErrorMessage,
+  SubmitButton,
+} from "../components/forms";
+import apiUsers from "../api/users";
+import useAuth from "../auth/useAuth";
+import apiAuth from "../api/auth";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -11,13 +19,40 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen() {
+  const [error, setError] = useState();
+  const [registerFaild, setRegisterFaild] = useState(false);
+  const auth = useAuth();
+
+  const handleSubmit = async (userInfo) => {
+    const result = await apiUsers.register(userInfo);
+    if (!result.ok) {
+      setRegisterFaild(true);
+      if (result.data) {
+        setError(result.data.error);
+        console.log(result);
+      } else {
+        setError("Unexpected error occured. retry later");
+        console.log(result);
+      }
+      return;
+    }
+    setRegisterFaild(false);
+
+    const { data: authToken } = await apiAuth.login(
+      userInfo.email,
+      userInfo.password
+    );
+    auth.login(authToken);
+  };
+
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{ name: "", email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
+        <ErrorMessage error={error} visible={registerFaild} />
         <AppFormFeild
           name="name"
           label="Name"
