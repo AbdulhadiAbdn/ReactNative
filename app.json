@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ReactNative",
+    "name": "DoneUsingIt",
     "slug": "ReactNative",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,6 +16,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.abdulhadiabdn.doneusingit",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./App/assets/icon.png",
         "backgroundColor": "#ffffff"
