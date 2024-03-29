@@ -1,15 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import "core-js/stable/atob";
 import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
 
-import theme from "./App/config/theme";
-import AppNavigator from "./App/navigation/AppNavigator";
-import OfflineNotice from "./App/components/OfflineNotice";
-import AuthNavigator from "./App/navigation/authNavigator";
 import AuthContext from "./App/auth/context";
 import authStorage from "./App/auth/storage";
+import OfflineNotice from "./App/components/OfflineNotice";
+import theme from "./App/config/theme";
+import AppNavigator from "./App/navigation/AppNavigator";
+import AuthNavigator from "./App/navigation/authNavigator";
 import { navigationRef } from "./App/navigation/rootNavigation";
 
 export default function App() {
