@@ -14,7 +14,10 @@ const settings = {
 
 const getCurrentState = () => {
   if (__DEV__) return settings.dev;
-  if (Updates.releaseChannel === "staging") return settings.staging;
+  if (Updates.releaseChannel === "staging") {
+    console.log("in staging");
+    return settings.staging;
+  }
   return settings.prod;
 };
 

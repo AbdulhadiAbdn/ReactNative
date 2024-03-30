@@ -30,7 +30,7 @@ function AccountScreen({ navigation }) {
         <ListItem
           title={user.name}
           subtitle={user.email}
-          image={require("../assets/mosh.jpg")}
+          image={require("../assets/abdul.jpg")}
         />
       </View>
       <View style={{ marginBottom: 30 }}>

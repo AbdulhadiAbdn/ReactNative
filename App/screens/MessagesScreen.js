@@ -13,13 +13,13 @@ function MessagesScreen() {
       id: 1,
       title: "t1",
       description: "d1",
-      image: require("../assets/mosh.jpg"),
+      image: require("../assets/abdul.jpg"),
     },
     {
       id: 2,
       title: "t2",
       description: "d2",
-      image: require("../assets/mosh.jpg"),
+      image: require("../assets/abdul.jpg"),
     },
   ];
   const [messages, setMessages] = useState(initialMessages);
@@ -51,7 +51,7 @@ function MessagesScreen() {
               id: 2,
               title: "t2",
               description: "d2",
-              image: require("../assets/mosh.jpg"),
+              image: require("../assets/abdul.jpg"),
             },
           ])
         }

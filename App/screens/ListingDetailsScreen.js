@@ -27,7 +27,7 @@ function ListingDetailsScreen({ route }) {
             <ListItem
               title="Abdulhadi Abdn"
               subtitle="5 listing"
-              image={require("../assets/mosh.jpg")}
+              image={require("../assets/abdul.jpg")}
             />
           </View>
         </View>
