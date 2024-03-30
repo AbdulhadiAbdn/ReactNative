@@ -3,7 +3,7 @@ import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
 import ListItem from "../components/lists/ListItem";
-import { Image } from "react-native-expo-image-cache";
+import { Image } from "expo-image";
 import ContactSellerForm from "../components/forms/ContactSellerForm";
 
 function ListingDetailsScreen({ route }) {
@@ -27,7 +27,7 @@ function ListingDetailsScreen({ route }) {
             <ListItem
               title="Abdulhadi Abdn"
               subtitle="5 listing"
-              image={require("../assets/mosh.jpg")}
+              image={require("../assets/abdul.jpg")}
             />
           </View>
         </View>

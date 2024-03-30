@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import colors from "../config/colors";
 import AppText from "./AppText";
-import { Image } from "react-native-expo-image-cache";
+import { Image } from "expo-image";
 
 function Card({ title, subtitle, imageURL, thumbnailURL }) {
   return (
